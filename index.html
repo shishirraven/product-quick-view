@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,700,900" rel="stylesheet">
+
+    <title>Product Quick View </title>
+
+  </head>
+  <body>
+    <div id="appProductView" class="container p-5">
+      <input id="navigation" class="form-control-plaintext"  v-on:keyup.right="nextImage()" v-on:keyup.left="prevImage()">
+      <h1 class="mb-5">Product Quick View</h1>
+      <div class="products d-flex flex-column flex-wrap flex-md-row">
+    
+        <div class="product pr-4 pb-4" v-for="(images,index) in productgallery">
+          <img v-bind:src="images.image" class="img-fluid z-depth-1 hoverable " @click="openImageBox(index,images)" alt="">
+        </div>
+      </div>
+
+
+
+   <div class=" custom-modal d-flex flex-column flex-md-row bg-white z-depth-5">
+      <div class="position-absolute close-button-modal " @click="closeImageBox()">
+        <button type="button" class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+      </div>
+      <div class="position-relative image-box">
+         <span v-if="productgallery.length>current_index+1" @click="nextImage()" class="carousel-control-next-icon position-absolute next-product" aria-hidden="true"></span>
+          <span v-if="current_index>0" @click="prevImage()" class="carousel-control-prev-icon position-absolute prev-product" aria-hidden="true"></span>
+
+        <img v-bind:src="current_image.image" class="img-fluid   " alt=""></div>
+      <div class=" text-dark description-box position-relative">
+        <div class="discription-box-inner p-5">
+          
+        <h1>{{current_image.title}}</h1>
+        <p>{{current_image.description}}</p>
+        <a v-bind:href="current_image.buy_link" class="btn btn-primary">Buy Product</a>
+        <a v-bind:href="current_image.learn_more_link" class="btn btn-text">Learn More</a>
+        </div>
+      </div>
+
+      
+    </div>
+
+    </div>
+
+ 
+
+    <style>
+    .image-box{
+      width:500px;
+    }
+    .discription-box-inner{
+      visibility: hidden;
+      
+      position: absolute;
+      /*display:none;*/
+    }
+    .prev-product{
+      left:0px;
+      top: calc( 50% - 10px ) ;
+      cursor:pointer;
+    }
+      .next-product{
+      right:0px;
+      top: calc( 50% - 10px ) ;
+      cursor:pointer;
+    }
+    .close-button-modal{
+      top:10px;
+      right:10px;
+      width:20px;
+      height:20px;
+      text-align: center;
+      cursor: pointer;
+      z-index:1;
+
+    }
+      .custom-modal{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        position: fixed;
+        visibility:hidden;
+      }
+
+      .expandBox {
+          -webkit-animation: expandWhiteBox 1s;  /* Safari 4.0 - 8.0 */
+            -webkit-animation-delay: .5s; /* Safari 4.0 - 8.0 */
+          animation: expandWhiteBox .4s;
+           animation-delay: .7s;
+           animation-fill-mode: forwards;
+           -webkit-animation-fill-mode: forwards;
+      }
+
+  
+
+
+      /* Safari 4.0 - 8.0 */
+      @-webkit-keyframes expandWhiteBox {
+          from {width: 0px;}
+          to {width: 500px;}
+      }
+
+      @keyframes expandWhiteBox {
+          from {width: 0px;}
+          to {width: 500px;}
+      }
+
+
+    .contractBox {
+        width:500px;
+          -webkit-animation: contractWhiteBox 1s;  /* Safari 4.0 - 8.0 */
+            -webkit-animation-delay: 0s; /* Safari 4.0 - 8.0 */
+           -webkit-animation-fill-mode: forwards;
+
+          animation: contractWhiteBox 1s;
+           animation-delay: 0s;
+           animation-fill-mode: forwards;
+      }
+
+  
+
+
+      /* Safari 4.0 - 8.0 */
+      @-webkit-keyframes contractWhiteBox {
+          from {width: 500px;}
+          to {width: 0px;}
+      }
+
+      @keyframes contractWhiteBox {
+          from {width: 500px;}
+          to {width: 0px;}
+      }
+
+        .hideBox {
+          opacity:1;
+          -webkit-animation: hideKeyframe s;  /* Safari 4.0 - 8.0 */
+            -webkit-animation-delay: 2s; /*.5 Safari 4.0 - 8.0 */
+           -webkit-animation-fill-mode: forwards;
+
+          animation: hideKeyframe .5s;
+           animation-delay: 2s;
+           animation-fill-mode: forwards;
+      }
+
+      /* Safari 4.0 - 8.0 */
+      @-webkit-keyframes hideKeyframe {
+          from {opacity: 1;}
+          to {opacity: 0;display:none;visibility: hidden;}
+      }
+
+      @keyframes hideKeyframe {
+          from {opacity:1;}
+          to {opacity:0;display:none;visibility: hidden}
+      }
+
+
+      .showInnerText {
+        visibility: hidden;
+
+          left:-10px;
+          -webkit-animation: showinnertext 1s;  /* Safari 4.0 - 8.0 */
+            -webkit-animation-delay: 5s; /*.5 Safari 4.0 - 8.0 */
+           -webkit-animation-fill-mode: forwards;
+
+          animation: showinnertext .3s;
+           animation-delay: 1.2s;
+           animation-fill-mode: forwards;
+      }
+
+      /* Safari 4.0 - 8.0 */
+      @-webkit-keyframes showinnertext {
+          from {opacity: 0;left:-30px;visibility: visible;}
+          to {opacity: 1;left:0px;visibility: visible;}
+      }
+
+      @keyframes showinnertext {
+          from {opacity: 0;left:-30px;visibility: visible;}
+          to {opacity: 1;left:0px;visibility: visible;}
+      }
+
+
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+    </style>
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var appProductView = new Vue({
+        el: '#appProductView',
+        data: {
+          productgallery: [
+            { image: 'images/image.jpg', title:'Image Title', description: '1 This is an image of a butterfly \n isnt it beautiful', buy_link:"#",learn_more_link:"#" },
+            { image: 'images/image2.jpg', title:'Image Title', description: '2 This is an image of a butterfly \n isnt it beautiful', buy_link:"#",learn_more_link:"#" },
+            { image: 'images/image3.jpg', title:'Image Title', description: '3 This is an image of a butterfly \n isnt it beautiful', buy_link:"#",learn_more_link:"#" },
+            { image: 'images/image4.jpg', title:'Image Title', description: '3 This is an image of a butterfly \n isnt it beautiful', buy_link:"#",learn_more_link:"#" },
+          ],
+          current_image : {title:'',image:'',description:''},
+          current_index : 0
+        },
+        methods :{
+          openImageBox : function(index,image_ob)
+          {
+            $("#navigation").focus();
+            $('.custom-modal').removeClass('hideBox');
+            $('.description-box').removeClass('expandBox');
+            $('.description-box').removeClass('contractBox');
+            this.current_image = image_ob;
+            this.current_index = index;
+            $('.custom-modal').css('visibility','visible')
+            $('.description-box').addClass('expandBox');
+            $('.discription-box-inner').addClass('showInnerText');
+
+          },
+          closeImageBox : function()
+          {
+           // $('.description-box').removeClass('expandBox');
+            $('.description-box').addClass('contractBox');
+            $('.custom-modal').addClass('hideBox');
+             $('.description-box').removeClass('expandBox');
+            $('.discription-box-inner').removeClass('showInnerText');
+            $('.discription-box-inner').css('visibility',"hidden");
+
+          },
+          nextImage : function()
+          {
+            if(this.productgallery.length>this.current_index+1)
+            { 
+              this.current_image = this.productgallery[this.current_index+1];
+              this.current_index++;
+            }
+          },
+          prevImage : function(){
+            if(this.current_index>0)
+            { 
+              this.current_image = this.productgallery[this.current_index-1];
+              this.current_index--;
+            }
+
+          },
+        }
+      });
+    </script>
+
+
+  </body>
+</html>
