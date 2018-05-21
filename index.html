@@ -10,13 +10,17 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,700,900" rel="stylesheet">
 
-    <title>Product Quick View </title>
+    <title>Product Quick View by Shishir Raven </title>
 
   </head>
   <body>
     <div id="appProductView" class="container p-5">
       <input id="navigation" class="form-control-plaintext"  v-on:keyup.right="nextImage()" v-on:keyup.left="prevImage()">
       <h1 class="mb-5">Product Quick View</h1>
+      <p>Product Quick View is inspired by an excellent work done by codyhouse. 
+        As I loved it but did not wanted to buy it in $50 I decided to create it from scratch. 
+        The choice of tools I used are VueJS and plain Jquery. </p>
+      <p>It is simpler then what they offer. But I offer it free to anyone who may want to use it in their project </p>
       <div class="products d-flex flex-column flex-wrap flex-md-row">
     
         <div class="product pr-4 pb-4" v-for="(images,index) in productgallery">
